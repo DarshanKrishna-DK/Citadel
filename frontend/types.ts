@@ -13,6 +13,19 @@ export interface AIModerator {
   createdAt: Date;
   documents?: File[];
   upgrades?: Upgrade[];
+  avatar?: string;
+  skills?: ModeratorSkills;
+  rating?: number;
+  tags?: string[];
+  isActive?: boolean;
+}
+
+export interface ModeratorSkills {
+  toxicityDetection: number;
+  spamFiltering: number;
+  contextAwareness: number;
+  responseSpeed: number;
+  customization: number;
 }
 
 export interface Upgrade {
@@ -35,4 +48,21 @@ export interface User {
 export interface CartItem {
   moderator: AIModerator;
   quantity: number;
+  licenseType?: 'basic' | 'premium' | 'enterprise';
+}
+
+export interface ViewMode {
+  current: 'landing' | 'role-selection' | 'marketplace' | 'dashboard' | 'moderator-detail' | 'cart';
+  previousView?: ViewMode['current'];
+}
+
+export interface NavigationState {
+  selectedModeratorId?: string;
+  cartItems: CartItem[];
+  searchQuery?: string;
+  selectedFilters?: {
+    personality?: string;
+    priceRange?: [number, number];
+    rating?: number;
+  };
 }

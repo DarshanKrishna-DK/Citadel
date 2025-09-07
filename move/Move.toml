@@ -1,0 +1,22 @@
+[package]
+name = "citadel"
+version = "1.0.0"
+authors = []
+
+[addresses]
+citadel = "_"
+
+[dev-addresses]
+citadel = "0x5aa95162ba4b5475c4f1e506c68b53162fe5fb8272998bed3dc5119ab6ce4ce9"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
+
+[dependencies.AptosTokenObjects]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-token-objects"
+
+[dev-dependencies]

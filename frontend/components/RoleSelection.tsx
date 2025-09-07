@@ -1,95 +1,126 @@
 import React from 'react';
-import { useUser } from '../contexts/UserContext';
 import { UserRole } from '../types';
-import { Shield, Users } from 'lucide-react';
+import { Crown, Zap, ArrowRight } from 'lucide-react';
 
 interface RoleSelectionProps {
   onRoleSelected: (role: UserRole) => void;
 }
 
 export const RoleSelection: React.FC<RoleSelectionProps> = ({ onRoleSelected }) => {
-  const { user } = useUser();
-
-  const handleRoleSelect = (role: UserRole) => {
-    onRoleSelected(role);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-citadel-light-gray to-citadel-orange-light flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-citadel-black mb-4">
-            Welcome to <span className="text-citadel-orange">Citadel</span>
-          </h1>
-          <p className="text-xl text-citadel-dark-gray max-w-2xl mx-auto">
-            The decentralized marketplace for AI moderators. Choose your role to get started.
-          </p>
-        </div>
+    <div className="min-h-screen bg-citadel-black text-white overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-20 right-20 w-40 h-40 bg-citadel-orange/5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 left-20 w-32 h-32 bg-citadel-orange/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 w-60 h-60 bg-citadel-orange/3 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      </div>
 
-        {/* Role Selection Cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-          {/* Creator Card */}
-          <div
-            onClick={() => handleRoleSelect('creator')}
-            className="bg-white rounded-2xl shadow-xl p-8 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-citadel-orange"
-          >
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-citadel-orange-light rounded-full p-4 mb-6">
-                <Shield className="w-12 h-12 text-citadel-orange" />
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Header */}
+          <div className="mb-16">
+            <h1 className="text-6xl md:text-7xl font-bold citadel-heading mb-6">
+              CHOOSE YOUR <span className="text-citadel-orange">PATH</span>
+            </h1>
+            <p className="text-xl text-citadel-light-gray max-w-2xl mx-auto">
+              Enter the Citadel as a Creator to forge AI moderators, or as a Streamer to acquire and deploy them.
+            </p>
+          </div>
+
+          {/* Role Cards */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Creator Card */}
+            <div 
+              onClick={() => onRoleSelected('creator')}
+              className="citadel-card-angled p-10 cursor-pointer group citadel-interactive citadel-hover-lift"
+            >
+              <div className="text-center">
+                <div className="w-24 h-24 bg-gradient-to-br from-citadel-orange to-citadel-orange-bright rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:animate-glow-pulse">
+                  <Crown className="w-12 h-12 text-citadel-black" />
+                </div>
+                
+                <h2 className="text-4xl font-bold citadel-heading mb-4">CREATOR</h2>
+                <p className="text-citadel-light-gray text-lg mb-8 leading-relaxed">
+                  Forge powerful AI moderators with unique personalities and capabilities. 
+                  Monetize your creations and build your digital empire.
+                </p>
+
+                <div className="space-y-3 mb-8 text-left">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">Design AI personalities</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">Set licensing prices</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">Earn from your creations</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">Manage your portfolio</span>
+                  </div>
+                </div>
+
+                <div className="citadel-btn-primary w-full flex items-center justify-center gap-3 group-hover:scale-105 transition-transform">
+                  Enter as Creator
+                  <ArrowRight className="w-5 h-5" />
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-citadel-black mb-4">Creator</h3>
-              <p className="text-citadel-dark-gray mb-6">
-                Build, list, and earn from your AI moderators. Create innovative moderation solutions and monetize your expertise.
-              </p>
-              <div className="bg-citadel-orange-light rounded-lg p-4 w-full">
-                <ul className="text-sm text-citadel-dark-gray space-y-2">
-                  <li>• Mint new AI Moderators</li>
-                  <li>• Manage your creations</li>
-                  <li>• Track revenue & analytics</li>
-                  <li>• Build your reputation</li>
-                </ul>
+            </div>
+
+            {/* Streamer Card */}
+            <div 
+              onClick={() => onRoleSelected('streamer')}
+              className="citadel-card-angled p-10 cursor-pointer group citadel-interactive citadel-hover-lift"
+            >
+              <div className="text-center">
+                <div className="w-24 h-24 bg-gradient-to-br from-citadel-orange to-citadel-orange-bright rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:animate-glow-pulse">
+                  <Zap className="w-12 h-12 text-citadel-black" />
+                </div>
+                
+                <h2 className="text-4xl font-bold citadel-heading mb-4">STREAMER</h2>
+                <p className="text-citadel-light-gray text-lg mb-8 leading-relaxed">
+                  Discover and license cutting-edge AI moderators to protect and enhance 
+                  your community with intelligent automation.
+                </p>
+
+                <div className="space-y-3 mb-8 text-left">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">Browse AI moderators</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">License for your community</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">Customize behavior</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-citadel-orange rounded-full"></div>
+                    <span className="text-citadel-light-gray">Deploy instantly</span>
+                  </div>
+                </div>
+
+                <div className="citadel-btn-primary w-full flex items-center justify-center gap-3 group-hover:scale-105 transition-transform">
+                  Enter as Streamer
+                  <ArrowRight className="w-5 h-5" />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Streamer Card */}
-          <div
-            onClick={() => handleRoleSelect('streamer')}
-            className="bg-white rounded-2xl shadow-xl p-8 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-citadel-orange"
-          >
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-citadel-orange-light rounded-full p-4 mb-6">
-                <Users className="w-12 h-12 text-citadel-orange" />
-              </div>
-              <h3 className="text-2xl font-bold text-citadel-black mb-4">Streamer</h3>
-              <p className="text-citadel-dark-gray mb-6">
-                License, use, and upgrade moderators for your community. Access professional moderation tools with ease.
-              </p>
-              <div className="bg-citadel-orange-light rounded-lg p-4 w-full">
-                <ul className="text-sm text-citadel-dark-gray space-y-2">
-                  <li>• Browse moderator marketplace</li>
-                  <li>• License professional tools</li>
-                  <li>• Upgrade existing moderators</li>
-                  <li>• Manage your collection</li>
-                </ul>
-              </div>
-            </div>
+          {/* Footer Note */}
+          <div className="mt-16 text-center">
+            <p className="text-citadel-steel-light text-sm">
+              You can switch roles anytime from your dashboard
+            </p>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="text-center mt-12">
-          <p className="text-citadel-dark-gray">
-            Connected as: <span className="font-mono text-sm">
-              {user?.address
-                ? `${user.address.slice(0, 6)}...${user.address.slice(-4)}`
-                : 'Loading...'}
-            </span>
-          </p>
-          <p className="text-sm text-citadel-dark-gray mt-2">
-            Your role selection determines your dashboard and available features
-          </p>
         </div>
       </div>
     </div>

@@ -1,174 +1,220 @@
 import React, { useState } from 'react';
-import { useUser } from '../contexts/UserContext';
+import { Header } from './Header';
 import { AIModerator } from '../types';
-import { Plus, TrendingUp, Users, DollarSign, Edit, Eye } from 'lucide-react';
-import { MintModeratorForm } from './MintModeratorForm';
+import { Plus, TrendingUp, Users, DollarSign, Crown, Settings, Eye } from 'lucide-react';
 
-// Mock data for demonstration
-const mockModerators: AIModerator[] = [
+// Mock data for creator's moderators
+const mockCreatorModerators: AIModerator[] = [
   {
     id: '1',
     name: 'ContentGuard Pro',
-    personality: 'Strict Professional',
-    description: 'Advanced content moderation with AI-powered toxicity detection',
-    creator: '0x123...abc',
-    price: 50,
-    licenseCount: 25,
+    personality: 'Professional',
+    description: 'Advanced content moderation with toxicity detection and spam filtering capabilities.',
+    creator: '0xabc...123',
+    price: 2.5,
+    licenseCount: 45,
     totalUsageHours: 1200,
-    revenue: 1250,
+    revenue: 112.5,
     createdAt: new Date('2024-01-15'),
+    avatar: '🛡️',
+    skills: {
+      toxicityDetection: 95,
+      spamFiltering: 88,
+      contextAwareness: 92,
+      responseSpeed: 85,
+      customization: 78
+    },
+    rating: 4.8,
+    tags: ['Professional', 'High-Performance', 'Reliable'],
+    isActive: true
   },
   {
     id: '2',
-    name: 'Community Helper',
-    personality: 'Friendly Assistant',
-    description: 'Helpful moderator that engages with users while maintaining order',
-    creator: '0x123...abc',
-    price: 30,
-    licenseCount: 45,
-    totalUsageHours: 2100,
-    revenue: 1350,
-    createdAt: new Date('2024-02-20'),
-  },
+    name: 'StreamSafe AI',
+    personality: 'Friendly',
+    description: 'Community-focused moderator that maintains positive vibes while ensuring safety.',
+    creator: '0xabc...123',
+    price: 1.8,
+    licenseCount: 32,
+    totalUsageHours: 890,
+    revenue: 57.6,
+    createdAt: new Date('2024-02-01'),
+    avatar: '🤖',
+    skills: {
+      toxicityDetection: 82,
+      spamFiltering: 90,
+      contextAwareness: 88,
+      responseSpeed: 92,
+      customization: 85
+    },
+    rating: 4.6,
+    tags: ['Community', 'Friendly', 'Fast'],
+    isActive: true
+  }
 ];
 
 export const CreatorDashboard: React.FC = () => {
-  const { user } = useUser();
-  const [moderators, setModerators] = useState<AIModerator[]>(mockModerators);
+  const [moderators] = useState<AIModerator[]>(mockCreatorModerators);
   const [showMintForm, setShowMintForm] = useState(false);
-
-  const handleMintModerator = (moderatorData: any) => {
-    // In a real app, this would interact with the Aptos blockchain
-    console.log('Minting moderator:', moderatorData);
-
-    // Add the new moderator to the list (mock)
-    const newModerator: AIModerator = {
-      id: Date.now().toString(),
-      name: moderatorData.name,
-      personality: moderatorData.personality,
-      description: moderatorData.description,
-      creator: user?.address || 'Unknown',
-      price: parseFloat(moderatorData.price),
-      licenseCount: 0,
-      totalUsageHours: 0,
-      revenue: 0,
-      createdAt: new Date(),
-      documents: moderatorData.documents,
-    };
-
-    setModerators(prev => [...prev, newModerator]);
-  };
 
   const totalRevenue = moderators.reduce((sum, mod) => sum + mod.revenue, 0);
   const totalLicenses = moderators.reduce((sum, mod) => sum + mod.licenseCount, 0);
-  const totalUsage = moderators.reduce((sum, mod) => sum + mod.totalUsageHours, 0);
+  const totalUsageHours = moderators.reduce((sum, mod) => sum + mod.totalUsageHours, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex justify-between items-center">
+    <div className="min-h-screen bg-citadel-black text-white">
+      <Header />
+      
+      {/* Hero Section */}
+      <div className="bg-citadel-black-light/50 border-b border-citadel-steel/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Creator Dashboard</h1>
-              <p className="text-gray-600 mt-1">Manage your AI moderators and track performance</p>
+              <h1 className="text-5xl md:text-6xl font-bold citadel-heading mb-4">
+                MY <span className="text-citadel-orange">CITADEL</span>
+              </h1>
+              <p className="text-xl text-citadel-light-gray">
+                Manage your AI moderator empire and track your digital fortress growth.
+              </p>
             </div>
-            <button
-              onClick={() => setShowMintForm(true)}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2 transition-colors"
-            >
-              <Plus className="w-5 h-5" />
-              Mint New AI Moderator
-            </button>
+            <div className="flex items-center gap-2">
+              <Crown className="w-8 h-8 text-citadel-orange" />
+              <span className="text-2xl font-bold text-citadel-orange">Creator</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center">
-              <div className="bg-green-100 rounded-full p-3">
-                <DollarSign className="w-6 h-6 text-green-600" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                <p className="text-2xl font-bold text-gray-900">${totalRevenue}</p>
-              </div>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Stats Cards */}
+        <div className="grid md:grid-cols-4 gap-6 mb-12">
+          <div className="citadel-card p-6 text-center">
+            <DollarSign className="w-8 h-8 text-citadel-orange mx-auto mb-4" />
+            <div className="text-3xl font-bold text-citadel-orange mb-2">{totalRevenue.toFixed(1)}</div>
+            <div className="text-citadel-light-gray">Total Revenue (APT)</div>
           </div>
-
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center">
-              <div className="bg-blue-100 rounded-full p-3">
-                <Users className="w-6 h-6 text-blue-600" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Licenses</p>
-                <p className="text-2xl font-bold text-gray-900">{totalLicenses}</p>
-              </div>
-            </div>
+          <div className="citadel-card p-6 text-center">
+            <Users className="w-8 h-8 text-citadel-orange mx-auto mb-4" />
+            <div className="text-3xl font-bold text-citadel-orange mb-2">{totalLicenses}</div>
+            <div className="text-citadel-light-gray">Active Licenses</div>
           </div>
-
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center">
-              <div className="bg-purple-100 rounded-full p-3">
-                <TrendingUp className="w-6 h-6 text-purple-600" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Usage Hours</p>
-                <p className="text-2xl font-bold text-gray-900">{totalUsage}h</p>
-              </div>
-            </div>
+          <div className="citadel-card p-6 text-center">
+            <TrendingUp className="w-8 h-8 text-citadel-orange mx-auto mb-4" />
+            <div className="text-3xl font-bold text-citadel-orange mb-2">{totalUsageHours}</div>
+            <div className="text-citadel-light-gray">Usage Hours</div>
+          </div>
+          <div className="citadel-card p-6 text-center">
+            <Crown className="w-8 h-8 text-citadel-orange mx-auto mb-4" />
+            <div className="text-3xl font-bold text-citadel-orange mb-2">{moderators.length}</div>
+            <div className="text-citadel-light-gray">AI Moderators</div>
           </div>
         </div>
 
-        {/* My Creations */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">My Creations</h2>
+        {/* Actions */}
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold citadel-heading">Your AI Moderators</h2>
+          <button 
+            onClick={() => setShowMintForm(true)}
+            className="citadel-btn-primary flex items-center gap-3 px-6 py-3"
+          >
+            <Plus className="w-5 h-5" />
+            Forge New AI
+          </button>
+        </div>
+
+        {/* Moderators Grid */}
+        {moderators.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="citadel-card p-16 max-w-lg mx-auto">
+              <div className="w-24 h-24 bg-citadel-steel/20 rounded-2xl flex items-center justify-center mx-auto mb-8">
+                <Crown className="w-12 h-12 text-citadel-steel-light" />
+              </div>
+              <h3 className="text-3xl font-bold citadel-heading mb-4">Start Your Empire</h3>
+              <p className="text-citadel-light-gray text-lg mb-8">
+                Create your first AI moderator and begin building your digital fortress.
+              </p>
+              <button 
+                onClick={() => setShowMintForm(true)}
+                className="citadel-btn-primary flex items-center gap-3 mx-auto"
+              >
+                <Plus className="w-5 h-5" />
+                Forge Your First AI
+              </button>
+            </div>
           </div>
-          <div className="divide-y divide-gray-200">
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {moderators.map((moderator) => (
-              <div key={moderator.id} className="px-6 py-4 hover:bg-gray-50">
-                <div className="flex items-center justify-between">
+              <div key={moderator.id} className="citadel-card-angled p-8 group">
+                {/* Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-citadel-orange to-citadel-orange-bright rounded-2xl flex items-center justify-center text-2xl group-hover:animate-glow-pulse">
+                    {moderator.avatar}
+                  </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-medium text-gray-900">{moderator.name}</h3>
-                    <p className="text-sm text-gray-600">{moderator.personality}</p>
-                    <p className="text-sm text-gray-500 mt-1">{moderator.description}</p>
+                    <h3 className="text-xl font-bold text-white group-hover:text-citadel-orange transition-colors">
+                      {moderator.name}
+                    </h3>
+                    <p className="text-citadel-orange font-medium">{moderator.personality}</p>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
-                      <p className="text-sm text-gray-600">Revenue</p>
-                      <p className="font-semibold text-green-600">${moderator.revenue}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm text-gray-600">Licenses</p>
-                      <p className="font-semibold">{moderator.licenseCount}</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <button className="p-2 text-gray-400 hover:text-blue-600 transition-colors">
-                        <Eye className="w-5 h-5" />
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-green-600 transition-colors">
-                        <Edit className="w-5 h-5" />
-                      </button>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <div className={`w-3 h-3 rounded-full ${moderator.isActive ? 'bg-green-400' : 'bg-red-400'} animate-pulse`}></div>
+                    <span className="text-sm text-citadel-light-gray">
+                      {moderator.isActive ? 'Active' : 'Inactive'}
+                    </span>
                   </div>
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-citadel-orange">{moderator.licenseCount}</div>
+                    <div className="text-xs text-citadel-light-gray">Licenses</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-citadel-orange">{moderator.revenue.toFixed(1)}</div>
+                    <div className="text-xs text-citadel-light-gray">Revenue (APT)</div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-citadel-light-gray text-sm mb-6 leading-relaxed">
+                  {moderator.description}
+                </p>
+
+                {/* Actions */}
+                <div className="flex gap-3">
+                  <button className="citadel-btn-secondary flex-1 flex items-center justify-center gap-2 py-2">
+                    <Eye className="w-4 h-4" />
+                    View
+                  </button>
+                  <button className="citadel-btn-secondary flex-1 flex items-center justify-center gap-2 py-2">
+                    <Settings className="w-4 h-4" />
+                    Edit
+                  </button>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Mint Moderator Form Modal */}
+      {/* Mint Form Modal Placeholder */}
       {showMintForm && (
-        <MintModeratorForm
-          onClose={() => setShowMintForm(false)}
-          onMint={handleMintModerator}
-        />
+        <div className="fixed inset-0 bg-citadel-black/80 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="citadel-card p-8 max-w-md mx-4">
+            <h3 className="text-2xl font-bold citadel-heading mb-4">Forge New AI</h3>
+            <p className="text-citadel-light-gray mb-6">
+              The AI forging interface will be available soon. Stay tuned for the ability to create custom AI moderators.
+            </p>
+            <button 
+              onClick={() => setShowMintForm(false)}
+              className="citadel-btn-primary w-full"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

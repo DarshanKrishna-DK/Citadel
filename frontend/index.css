@@ -2,6 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom wallet selector styling */
+.wallet-selector-container .ant-btn {
+  @apply bg-citadel-orange hover:bg-citadel-orange/90 text-citadel-black font-semibold px-6 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 border-none;
+}
+
+.wallet-selector-container .ant-btn:hover {
+  @apply bg-citadel-orange/90 text-citadel-black;
+}
+
+.wallet-selector-container .ant-modal {
+  @apply bg-citadel-black;
+}
+
+.wallet-selector-container .ant-modal-content {
+  @apply bg-citadel-black border border-citadel-orange/20;
+}
+
+.wallet-selector-container .ant-modal-header {
+  @apply bg-citadel-black border-b border-citadel-orange/20;
+}
+
+.wallet-selector-container .ant-modal-title {
+  @apply text-white;
+}
+
+.wallet-selector-container .ant-modal-body {
+  @apply bg-citadel-black;
+}
+
+.wallet-selector-container .ant-list-item {
+  @apply border-citadel-orange/20 hover:bg-citadel-steel/10;
+}
+
+.wallet-selector-container .ant-list-item-meta-title {
+  @apply text-white;
+}
+
+.wallet-selector-container .ant-list-item-meta-description {
+  @apply text-citadel-light-gray;
+}
+
+/* Gradient utilities */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -35,13 +81,19 @@
 
     --radius: 0.5rem;
 
-    /* Citadel Brand Colors */
+    /* Citadel Brand Colors - Enhanced Futuristic Palette */
     --citadel-orange: 24 95% 53%;
-    --citadel-black: 0 0% 0%;
-    --citadel-dark-gray: 0 0% 20%;
-    --citadel-light-gray: 0 0% 96%;
+    --citadel-orange-bright: 24 100% 60%;
     --citadel-orange-light: 24 95% 95%;
     --citadel-orange-dark: 24 95% 30%;
+    --citadel-orange-glow: 24 100% 50%;
+    --citadel-black: 0 0% 0%;
+    --citadel-black-light: 0 0% 8%;
+    --citadel-dark-gray: 0 0% 12%;
+    --citadel-medium-gray: 0 0% 20%;
+    --citadel-light-gray: 0 0% 96%;
+    --citadel-steel: 210 10% 23%;
+    --citadel-steel-light: 210 10% 40%;
   }
 
   .dark {
@@ -80,6 +132,638 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-citadel-black text-white font-inter;
+    background-image:
+      radial-gradient(circle, rgba(255, 138, 76, 0.08) 1px, transparent 1px),
+      radial-gradient(circle, rgba(255, 138, 76, 0.04) 1px, transparent 1px);
+    background-size: 30px 30px, 60px 60px;
+    background-position: 0 0, 15px 15px;
+    background-attachment: fixed;
+    min-height: 100vh;
   }
+}
+
+@layer components {
+  /* Futuristic Card Styles */
+  .citadel-card {
+    @apply bg-citadel-black-light border border-citadel-steel/30 rounded-2xl shadow-citadel backdrop-blur-sm;
+    background: linear-gradient(135deg, rgba(255, 138, 0, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
+  }
+
+  .citadel-card-angled {
+    @apply citadel-card;
+    transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
+    transition: all 0.3s ease;
+  }
+
+  .citadel-card-angled:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
+    @apply shadow-glow;
+  }
+
+  /* Glowing Elements */
+  .citadel-glow {
+    @apply shadow-glow animate-glow-pulse;
+  }
+
+  .citadel-border-glow {
+    @apply border border-citadel-orange/50 shadow-inner-glow;
+    background: linear-gradient(135deg, rgba(255, 138, 0, 0.1) 0%, transparent 50%);
+  }
+
+  /* Buttons */
+  .citadel-btn-primary {
+    @apply bg-gradient-to-r from-citadel-orange to-citadel-orange-bright text-citadel-black font-semibold px-6 py-3 rounded-xl shadow-glow hover:shadow-glow-lg transition-all duration-300 hover:scale-105;
+  }
+
+  .citadel-btn-secondary {
+    @apply bg-citadel-steel/20 border border-citadel-orange/30 text-citadel-orange font-semibold px-6 py-3 rounded-xl hover:bg-citadel-orange/10 hover:border-citadel-orange/60 transition-all duration-300;
+  }
+
+  .citadel-btn-hero {
+    @apply bg-gradient-to-r from-citadel-orange to-citadel-orange-bright text-citadel-black font-bold rounded-xl shadow-2xl hover:shadow-citadel-orange/50 transition-all duration-300 hover:scale-105 relative overflow-hidden;
+  }
+
+  .citadel-btn-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .citadel-btn-hero:hover::before {
+    left: 100%;
+  }
+
+  .citadel-btn-secondary-hero {
+    @apply bg-transparent border-2 border-citadel-orange/50 text-citadel-orange font-semibold rounded-xl hover:bg-citadel-orange/10 hover:border-citadel-orange transition-all duration-300 hover:scale-105 relative overflow-hidden;
+  }
+
+  .citadel-btn-secondary-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 138, 76, 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  .citadel-btn-secondary-hero:hover::before {
+    left: 100%;
+  }
+
+  /* Floating Elements */
+  .citadel-float {
+    @apply animate-float;
+  }
+
+  /* Text Styles */
+  .citadel-text-glow {
+    text-shadow: 0 0 10px rgba(255, 138, 0, 0.5);
+  }
+
+  .citadel-heading {
+    @apply text-white font-bold citadel-text-glow;
+  }
+
+  /* Interactive Elements */
+  .citadel-interactive {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-glow;
+  }
+
+  .citadel-hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-2;
+  }
+
+  /* Scroll Animations */
+  .citadel-scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+
+  .citadel-scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Loading States */
+  .citadel-loading {
+    @apply animate-pulse bg-citadel-steel/20;
+  }
+
+  /* Custom Scrollbar */
+  .citadel-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .citadel-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 138, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  .citadel-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #ff8a00, #ffb347);
+    border-radius: 4px;
+  }
+
+  .citadel-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ffb347, #ff8a00);
+  }
+
+  /* Particle Effects */
+  .citadel-particles {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .citadel-particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(255, 138, 0, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(255, 138, 0, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 80%, rgba(255, 138, 0, 0.1) 0%, transparent 50%);
+    animation: particle-float 20s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes particle-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(120deg); }
+    66% { transform: translateY(10px) rotate(240deg); }
+  }
+
+  /* Typing Animation */
+  .citadel-typing {
+    overflow: hidden;
+    border-right: 2px solid #ff8a00;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #ff8a00; }
+  }
+
+  /* Matrix Rain Effect */
+  .citadel-matrix {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .citadel-matrix::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 138, 0, 0.03) 50%, transparent 100%);
+    animation: matrix-scan 4s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes matrix-scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+/* Enhanced navbar styling */
+nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--citadel-orange), var(--citadel-orange-bright));
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Wallet selector in navbar */
+.wallet-selector-container .ant-btn {
+  @apply bg-gradient-to-r from-citadel-orange to-citadel-orange-bright hover:from-citadel-orange-bright hover:to-citadel-orange text-citadel-black font-bold px-6 py-2 rounded-xl transition-all duration-300 transform hover:scale-105 border-none shadow-lg;
+}
+
+.wallet-selector-container .ant-btn:hover {
+  @apply shadow-citadel-orange/50 shadow-xl;
+}
+
+/* Modern Dotted Background */
+.citadel-dots-bg {
+  background-image: radial-gradient(circle, rgba(255, 138, 76, 0.4) 1px, transparent 1px);
+  background-size: 15px 15px;
+  animation: dots-move 20s linear infinite;
+  opacity: 0.8;
+}
+
+.citadel-dots-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 138, 76, 0.2) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: dots-move-reverse 25s linear infinite;
+}
+
+.citadel-dots-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 138, 76, 0.12) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: dots-move 30s linear infinite;
+}
+
+/* Background Animations */
+@keyframes dots-move {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(10px, -10px); }
+  50% { transform: translate(-5px, -20px); }
+  75% { transform: translate(-15px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes dots-move-reverse {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-8px, 12px); }
+  50% { transform: translate(6px, 18px); }
+  75% { transform: translate(12px, 8px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(120deg); }
+  66% { transform: translateY(10px) rotate(240deg); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(15px) rotate(-90deg); }
+  66% { transform: translateY(-10px) rotate(-180deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-30px) scale(1.1); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(25px) rotate(180deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+@keyframes pulse-slower {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.08); }
+}
+
+@keyframes scan-horizontal {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+
+@keyframes scan-vertical {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Animation Classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-float-slow {
+  animation: float-slow 10s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-scan-horizontal {
+  animation: scan-horizontal 8s linear infinite;
+  animation-delay: 1s;
+}
+
+.animate-scan-vertical {
+  animation: scan-vertical 12s linear infinite;
+  animation-delay: 4s;
+}
+
+/* Hero Section Enhancements */
+.hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 138, 76, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 138, 76, 0.1) 1px, transparent 1px);
+  background-size: 100px 100px;
+  animation: grid-move 20s linear infinite;
+}
+
+.citadel-card-mini {
+  @apply bg-citadel-black-light/50 border border-citadel-orange/20 rounded-xl backdrop-blur-sm;
+  background: linear-gradient(135deg, rgba(255, 138, 76, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* Hero Animations */
+@keyframes grid-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(100px, 100px); }
+}
+
+@keyframes float-card-1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+  50% { transform: translateY(-20px) rotate(2deg); opacity: 0.8; }
+}
+
+@keyframes float-card-2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+  50% { transform: translateY(15px) rotate(-1deg); opacity: 0.7; }
+}
+
+@keyframes float-card-3 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(-25px) rotate(1deg); opacity: 0.9; }
+}
+
+@keyframes float-card-4 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+  50% { transform: translateY(10px) rotate(-2deg); opacity: 0.6; }
+}
+
+@keyframes data-stream-1 {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes data-stream-2 {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes data-stream-3 {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes slide-in-up {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes counter-animation {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Animation Classes */
+.animate-float-card-1 {
+  animation: float-card-1 8s ease-in-out infinite;
+}
+
+.animate-float-card-2 {
+  animation: float-card-2 10s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-float-card-3 {
+  animation: float-card-3 12s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+.animate-float-card-4 {
+  animation: float-card-4 9s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-data-stream-1 {
+  animation: data-stream-1 6s linear infinite;
+}
+
+.animate-data-stream-2 {
+  animation: data-stream-2 8s linear infinite;
+  animation-delay: 2s;
+}
+
+.animate-data-stream-3 {
+  animation: data-stream-3 7s linear infinite;
+  animation-delay: 4s;
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.counter-animation {
+  animation: counter-animation 1s ease-out forwards;
+  animation-delay: 1.2s;
+  opacity: 0;
+}
+
+/* Particle Animations */
+@keyframes particle-1 {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-30px) scale(1.2); opacity: 1; }
+}
+
+@keyframes particle-2 {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.4; }
+  50% { transform: translateY(20px) translateX(-10px) scale(1.5); opacity: 0.8; }
+}
+
+@keyframes particle-3 {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
+  50% { transform: translateY(-25px) scale(1.3); opacity: 1; }
+}
+
+@keyframes particle-4 {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.5; }
+  50% { transform: translateY(15px) translateX(8px) scale(1.1); opacity: 0.9; }
+}
+
+@keyframes particle-5 {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
+  50% { transform: translateY(-20px) scale(1.4); opacity: 0.7; }
+}
+
+@keyframes particle-6 {
+  0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.6; }
+  50% { transform: translateY(25px) translateX(-5px) scale(1.2); opacity: 1; }
+}
+
+.animate-particle-1 {
+  animation: particle-1 4s ease-in-out infinite;
+}
+
+.animate-particle-2 {
+  animation: particle-2 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-particle-3 {
+  animation: particle-3 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-particle-4 {
+  animation: particle-4 4.5s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-particle-5 {
+  animation: particle-5 5.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-particle-6 {
+  animation: particle-6 4.8s ease-in-out infinite;
+  animation-delay: 2.5s;
+}
+
+/* Responsive Hero Adjustments */
+@media (max-height: 700px) {
+  .hero-compact {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .hero-compact h1 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+
+  .hero-compact .stats-compact {
+    gap: 0.75rem;
+  }
+
+  .hero-compact .stats-compact .citadel-card {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .hero-compact h1 {
+    font-size: 2rem;
+  }
+
+  .hero-compact p {
+    font-size: 1rem;
+  }
+
+  .hero-compact .stats-compact {
+    display: none;
+  }
+}
+
+/* Marketplace Specific Styles */
+.citadel-dots-bg {
+  background-image:
+    radial-gradient(circle, rgba(255, 138, 76, 0.4) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 138, 76, 0.2) 1px, transparent 1px);
+  background-size: 15px 15px, 30px 30px;
+  background-position: 0 0, 7px 7px;
+  animation: dots-move 20s linear infinite, dots-move-reverse 25s linear infinite;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Pulse animations for background elements */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+@keyframes pulse-slower {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 6s ease-in-out infinite;
+}
+
+/* Gradient radial utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
 }

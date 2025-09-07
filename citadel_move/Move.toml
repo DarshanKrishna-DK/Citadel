@@ -1,0 +1,14 @@
+[package]
+name = "citadel"
+version = "1.0.0"
+authors = ["Citadel Team"]
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework", rev = "main" }
+
+[addresses]
+citadel_admin = "0x5f8fd2347449685cf41d4db97926ec3a096eaf381332be4f1318ad4d16a8497c"
+citadel = "_"
+
+[dev-addresses]
+citadel = "0x5f8fd2347449685cf41d4db97926ec3a096eaf381332be4f1318ad4d16a8497c"
