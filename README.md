@@ -1,4 +1,4 @@
-# 🏰 Citadel - AI-Powered Twitch Moderation Platform
+# 🏰 Citadel - AI-Powered LiveStreaming Moderation Platform
 
 **The Future of Livestream Moderation** - A revolutionary decentralized platform that provides real-time AI moderation for Twitch streamers, built on the Aptos blockchain with comprehensive content filtering and automated chat management.
 
