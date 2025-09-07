@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CREATOR
+  STREAMER
+}
+
+enum Platform {
+  TWITCH
+  YOUTUBE
+}
+
+enum SessionStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  walletAddress String  @unique
+  role         UserRole
+  name         String?
+  email        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  aiModels     AIModel[]
+  licenses     License[]
+
+  @@map("users")
+}
+
+model AIModel {
+  id             String   @id @default(cuid())
+  onChainAddress String   @unique
+  creatorId      String
+  name           String
+  description    String
+  personality    String
+  price          Float
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  creator        User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  licenses       License[]
+
+  @@map("ai_models")
+}
+
+model License {
+  id             String   @id @default(cuid())
+  onChainAddress String   @unique
+  ownerId        String
+  aiModelId      String
+  level          Int      @default(1)
+  isUpgraded     Boolean  @default(false)
+  acquiredAt     DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  owner          User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  aiModel        AIModel  @relation(fields: [aiModelId], references: [id], onDelete: Cascade)
+  sessions       DeploymentSession[]
+
+  @@map("licenses")
+}
+
+model DeploymentSession {
+  id         String        @id @default(cuid())
+  licenseId  String
+  platform   Platform
+  startTime  DateTime
+  endTime    DateTime?
+  status     SessionStatus @default(ACTIVE)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  // Relations
+  license    License       @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+
+  @@map("deployment_sessions")
+}
